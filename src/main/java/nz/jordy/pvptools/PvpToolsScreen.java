@@ -20,6 +20,7 @@ public final class PvpToolsScreen extends Screen {
                 button -> {
                     JordyPvpToolsClient.totemCounterEnabled =
                             !JordyPvpToolsClient.totemCounterEnabled;
+
                     button.setMessage(Component.literal("Totem Counter: " +
                             (JordyPvpToolsClient.totemCounterEnabled ? "ON" : "OFF")));
                 }
@@ -29,6 +30,7 @@ public final class PvpToolsScreen extends Screen {
                 Component.literal("Fire Overlay: coming in next update"),
                 button -> {}
         ).bounds(centerX - 100, startY + 28, 200, 20).build();
+
         fireInfo.active = false;
         this.addRenderableWidget(fireInfo);
 
@@ -40,14 +42,19 @@ public final class PvpToolsScreen extends Screen {
 
     @Override
     public void onClose() {
-        this.minecraft.gui.setScreen(null);
+        this.minecraft.setScreen(null);
     }
 
     @Override
-    public void extractRenderState(net.minecraft.client.gui.GuiGraphicsExtractor graphics,
-                                   int mouseX, int mouseY, float delta) {
+    public void extractRenderState(
+            net.minecraft.client.gui.GuiGraphicsExtractor graphics,
+            int mouseX, int mouseY, float delta) {
+
         super.extractRenderState(graphics, mouseX, mouseY, delta);
+
         graphics.text(this.font, "Press Right Shift to open this menu",
-                this.width / 2 - 105, this.height / 2 + 58, 0xFFAAAAAA, false);
+                this.width / 2 - 105,
+                this.height / 2 + 58,
+                0xFFAAAAAA, false);
     }
 }
