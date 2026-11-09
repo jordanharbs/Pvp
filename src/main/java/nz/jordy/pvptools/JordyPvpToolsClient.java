@@ -35,8 +35,9 @@ public final class JordyPvpToolsClient implements ClientModInitializer {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (openMenuKey.consumeClick()) {
-                if (client.player != null && client.gui.screen() == null) {
-                    client.gui.setScreen(new PvpToolsScreen(Component.literal("JORDY NZ PvP Tools")));
+                if (client.player != null && client.screen == null) {
+                    client.setScreen(new PvpToolsScreen(
+                            Component.literal("JORDY NZ PvP Tools")));
                 }
             }
         });
@@ -44,12 +45,16 @@ public final class JordyPvpToolsClient implements ClientModInitializer {
         HudElementRegistry.addLast(HUD_ID, (graphics, deltaTracker) -> {
             Minecraft client = Minecraft.getInstance();
 
-            if (!totemCounterEnabled || client.player == null || client.options.hideGui) {
+            if (!totemCounterEnabled || client.player == null
+                    || client.options.hideGui) {
                 return;
             }
 
-            int totems = client.player.getInventory().countItem(Items.TOTEM_OF_UNDYING);
-            graphics.text(client.font, "Totems: " + totems, 8, 8, 0xFFFFFFFF, true);
+            int totems = client.player.getInventory()
+                    .countItem(Items.TOTEM_OF_UNDYING);
+
+            graphics.text(client.font, "Totems: " + totems,
+                    8, 8, 0xFFFFFFFF, true);
         });
     }
 }
